@@ -1111,3 +1111,216 @@ p, li{
 .pay-button:hover {
   background: #ffdb4d;
 }
+
+/* ===== MOBILE FIXES ===== */
+@media (max-width: 768px) {
+  /* Typography adjustments */
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  p, li {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Consistent section padding */
+  .container,
+  .section-container,
+  .booking-container,
+  .itineraries-container {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Buttons full-width for easier tapping */
+  .button,
+  .buy-button,
+  .booking-button,
+  .pay-button {
+    width: 100%;
+    max-width: 350px;
+    margin: 1rem auto;
+    display: block;
+  }
+
+  /* Image grid becomes single column */
+  .image-grid {
+    column-count: 1;
+    column-gap: 0;
+  }
+
+  /* Improve review text */
+  .review-quote {
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .review-name {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  /* Navbar tweaks for space */
+  .nav-links {
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Force-remove any underlines or bottom borders on mobile buttons */
+.button,
+.buy-button,
+.booking-button,
+.pay-button {
+  text-decoration: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+a.button,
+a.buy-button,
+a.booking-button,
+a.pay-button {
+  text-decoration: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Mobile button hard reset */
+@media (max-width: 768px) {
+  .button,
+  .buy-button,
+  .booking-button,
+  .pay-button,
+  a.button,
+  a.buy-button,
+  a.booking-button,
+  a.pay-button {
+    all: unset; /* strip EVERYTHING */
+    display: block;
+    background: #FFC636;
+    color: black;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    max-width: 350px;
+    margin: 1rem auto;
+  }
+
+  .button:hover,
+  .buy-button:hover,
+  .booking-button:hover,
+  .pay-button:hover {
+    background: #eab308;
+  }
+}
+
+/* Remove any inner underline or Safari tap highlight */
+.button *,
+.buy-button *,
+.booking-button *,
+.pay-button * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.button,
+.buy-button,
+.booking-button,
+.pay-button,
+a.button,
+a.buy-button,
+a.booking-button,
+a.pay-button {
+  -webkit-tap-highlight-color: transparent; /* iOS Safari highlight */
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+/* Remove underline from Link-wrapped buttons */
+a,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none !important;
+}
+
+a .button,
+a .buy-button,
+a .booking-button,
+a .pay-button {
+  text-decoration: none !important;
+  color: #081F5C !important;
+}
+
+/* Hide top Book / Itinerary buttons on mobile */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+/* ===== Mobile Navbar Fixes ===== */
+@media (max-width: 768px) {
+  /* Center the logo in the navbar */
+  .nav-content {
+    justify-content: center !important;
+    padding: 0.75rem 1rem; /* balanced padding */
+    position: relative; /* for positioning floating elements if needed */
+  }
+
+  /* Hide nav links on mobile */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* Ensure logo is centered visually */
+  .nav-logo img,
+  .site-nav-logo {
+    display: block;
+    margin: 0 auto;
+    height: 40px;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-book-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #FFC636;
+    color: black;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.9rem 1.4rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 9999;
+  }
+  .floating-book-btn:hover {
+    background: #eab308;
+  }
+}

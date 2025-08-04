@@ -12,8 +12,8 @@ export default function Navbar() {
 
         {/* Links */}
         <div className="nav-links">
-          <Link to="/itineraries">Itineraries</Link>
-          <Link to="/book">Book Now</Link>
+          <Link to="/itineraries" className="hide-on-mobile">Itineraries</Link>
+          <Link to="/book" className="hide-on-mobile">Book Now</Link>
         </div>
       </div>
     </nav>

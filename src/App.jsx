@@ -29,17 +29,20 @@ export default function App() {
           <h2>☕ How It Works</h2>
             <p>Pick Your Vibe: Foodie, artsy, nature lover, or a mix.</p>
         </section>
+
         <section className="section section-spacer">
           <h2>👯‍♀️ Meet Your Local Friend</h2>
             <p>We match you with a vetted Seattle local.</p>
             <p>Explore Together: Custom-planned day + candid photos.</p>
         </section>
+
         <section className="section section-spacer">
           <h2>🗺️ Explore Together</h2>
             <p>Custom-planned day + candid photos.</p>
         </section>
 
-        <Link to="/book">
+        {/* Hide on mobile */}
+        <Link to="/book" className="hide-on-mobile">
           <button className="button">Book Your Local Buddy</button>
         </Link>
 
@@ -55,7 +58,8 @@ export default function App() {
           <p>1-Day Plan — <b>$50</b></p>
           <p>3-Day Plan — <b>$120</b></p>
           <p>For when you don't need a guide but would like a plan.</p>
-          <Link to="/itineraries">
+          {/* Hide on mobile */}
+          <Link to="/itineraries" className="hide-on-mobile">
             <button className="button">Learn more about itineraries</button>
           </Link>
         </section>
@@ -69,18 +73,19 @@ export default function App() {
         <section className="section">
           <h2>🤠 Meet The Locals</h2>
           <div className='pic-and-text'>
-            <img className="prof-pic" src={aisha}/>
+            <img className="prof-pic" src={aisha} alt="Aisha"/>
             <p><strong>Aisha</strong> — Raised in Seattle. Loves coffee shops, views, and ferry rides.</p>
           </div>
           <div className='pic-and-text'>
-            <img className="prof-pic" src={jan}/>
+            <img className="prof-pic" src={jan} alt="Jan"/>
             <p><strong>Jan</strong> — From Guam. Loves breweries, festivals, meeting people.</p>
           </div>
           <div className='pic-and-text'>
-            <img className="prof-pic" src={jacob}/>
+            <img className="prof-pic" src={jacob} alt="Jacob"/>
             <p><strong>Jacob</strong> — From Milwaukee. Loves Seattle, music, coffee.</p>
           </div>
-          <Link to="/book">
+          {/* Hide on mobile */}
+          <Link to="/book" className="hide-on-mobile">
             <button className="button">Book Your Local Buddy</button>
           </Link>
         </section>
@@ -111,6 +116,11 @@ export default function App() {
         <ImageCard src={edgeWater2} loading="lazy"/>
         <ImageCard src={goldenGardens} loading="lazy"/>
       </div>
+
+      {/* Floating Book Button - only visible on mobile */}
+      <Link to="/book">
+        <button className="floating-book-btn">📅 Book Now</button>
+      </Link>
     </div>
   );
 }
@@ -118,7 +128,7 @@ export default function App() {
 function ImageCard({ src, caption }) {
   return (
     <figure className='image-card'>
-      <img src={src} alt={caption} />
+      <img src={src} alt={caption || ''} />
       <figcaption className="caption">{caption}</figcaption>
     </figure>
   );
