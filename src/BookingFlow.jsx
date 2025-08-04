@@ -15,6 +15,10 @@ export default function BookingFlow() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedGuide, setSelectedGuide] = useState("");
 
+  // Contact email state
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactEmailError, setContactEmailError] = useState("");
+
   // Data
   const vibes = [
     { id: "foodie", label: "🍽️ Foodie" },
@@ -43,6 +47,24 @@ export default function BookingFlow() {
       img: jacob,
     },
   ];
+
+  // Email validation
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  // Handle final checkout click
+  const handleConfirmAndPay = () => {
+    if (!isValidEmail(contactEmail)) {
+      setContactEmailError("Please enter a valid contact email.");
+      return;
+    }
+    setContactEmailError("");
+
+    handleCheckout(
+      `${selectedPackage} Local Buddy (${selectedVibe})`,
+      price,
+      "/book"
+    );
+  };
 
   return (
     <div className="booking-flow">
@@ -126,10 +148,29 @@ export default function BookingFlow() {
         </div>
       )}
 
-      {/* Step 5: Confirm & Pay */}
+      {/* Step 5: Contact Email */}
       {selectedGuide && (
+        <div className="booking-step">
+          <h2>📧 Step 5: Your Contact Email</h2>
+          <p>This is so we can follow up with any questions about your booking.</p>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={contactEmail}
+            onChange={(e) => {
+              setContactEmail(e.target.value);
+              setContactEmailError("");
+            }}
+            className={`styled-input ${contactEmailError ? "error-input" : ""}`}
+          />
+          {contactEmailError && <p className="error-text">{contactEmailError}</p>}
+        </div>
+      )}
+
+      {/* Step 6: Confirm & Pay */}
+      {contactEmail && selectedGuide && (
         <div className="booking-step confirm-pay">
-          <h2>💳 Step 5: Confirm & Pay</h2>
+          <h2>💳 Step 6: Confirm & Pay</h2>
 
           <div className="summary-card">
             <div className="summary-row">
@@ -156,13 +197,7 @@ export default function BookingFlow() {
 
           <button
             className="pay-button"
-            onClick={() =>
-              handleCheckout(
-                `${selectedPackage} Local Buddy (${selectedVibe})`,
-                price,
-                "/book"
-              )
-            }
+            onClick={handleConfirmAndPay}
           >
             Confirm & Pay ${price}
           </button>
