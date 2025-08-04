@@ -9,19 +9,55 @@ export default function Itineraries() {
     quick: { name: "", email: "", goals: "" },
   });
 
+  const [errors, setErrors] = useState({
+    oneDay: { name: "", email: "" },
+    threeDay: { name: "", email: "" },
+    quick: { email: "" },
+  });
+
   const handleChange = (plan, field, value) => {
     setFormData((prev) => ({
       ...prev,
       [plan]: { ...prev[plan], [field]: value },
     }));
+
+    // Clear error when user types
+    setErrors((prev) => ({
+      ...prev,
+      [plan]: { ...prev[plan], [field]: "" },
+    }));
   };
+
+  // Simple email validation
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = (planName, price) => {
     const { name, email, goals } = formData[planName];
-    if (!name || !email) {
-      alert("Please fill in your name and email.");
-      return;
+    let valid = true;
+
+    const newErrors = { ...errors };
+
+    // Name validation for 1-day and 3-day
+    if (planName !== "quick") {
+      if (!name.trim()) {
+        newErrors[planName].name = "Name is required.";
+        valid = false;
+      } else {
+        newErrors[planName].name = "";
+      }
     }
+
+    // Email validation for all plans
+    if (!isValidEmail(email)) {
+      newErrors[planName].email = "Please enter a valid email address.";
+      valid = false;
+    } else {
+      newErrors[planName].email = "";
+    }
+
+    setErrors(newErrors);
+
+    if (!valid) return;
 
     // Send itinerary request to backend
     fetch("/send-itinerary-request", {
@@ -50,7 +86,7 @@ export default function Itineraries() {
         </p>
       </div>
 
-      {/* Custom Plans */}
+      {/* 1-Day Plan */}
       <div className="plan-card">
         <h3>1‑Day Plan</h3>
         <p className="price">$50 — Full‑day schedule with dining & activity recommendations.</p>
@@ -60,12 +96,16 @@ export default function Itineraries() {
           value={formData.oneDay.name}
           onChange={(e) => handleChange("oneDay", "name", e.target.value)}
         />
+        {errors.oneDay.name && <p className="error-text">{errors.oneDay.name}</p>}
+        
         <input
           type="email"
           placeholder="Your email"
           value={formData.oneDay.email}
           onChange={(e) => handleChange("oneDay", "email", e.target.value)}
         />
+        {errors.oneDay.email && <p className="error-text">{errors.oneDay.email}</p>}
+
         <textarea
           placeholder="Tell us about your goals, vibe, or must‑do's..."
           value={formData.oneDay.goals}
@@ -79,6 +119,7 @@ export default function Itineraries() {
         </button>
       </div>
 
+      {/* 3-Day Plan */}
       <div className="plan-card">
         <h3>3‑Day Plan</h3>
         <p className="price">$120 — Three days of curated activities & food stops.</p>
@@ -88,12 +129,16 @@ export default function Itineraries() {
           value={formData.threeDay.name}
           onChange={(e) => handleChange("threeDay", "name", e.target.value)}
         />
+        {errors.threeDay.name && <p className="error-text">{errors.threeDay.name}</p>}
+
         <input
           type="email"
           placeholder="Your email"
           value={formData.threeDay.email}
           onChange={(e) => handleChange("threeDay", "email", e.target.value)}
         />
+        {errors.threeDay.email && <p className="error-text">{errors.threeDay.email}</p>}
+
         <textarea
           placeholder="Tell us about your goals, vibe, or must‑do's..."
           value={formData.threeDay.goals}
@@ -117,6 +162,8 @@ export default function Itineraries() {
           value={formData.quick.email}
           onChange={(e) => handleChange("quick", "email", e.target.value)}
         />
+        {errors.quick.email && <p className="error-text">{errors.quick.email}</p>}
+
         <button
           className="buy-button"
           onClick={() => handleSubmit("quick", 25)}

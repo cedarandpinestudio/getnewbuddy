@@ -153,7 +153,7 @@ p, li{
 /* booking */
 .booking-container {
   min-height: 100vh;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
 }
@@ -481,7 +481,7 @@ p, li{
 }
 
 .booking-flow {
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   padding: 2rem;
 }
@@ -530,6 +530,11 @@ p, li{
 }
 
 .package-options button.selected {
+  background: #fbbf24; /* different shade when selected */
+  outline: 3px solid #f59e0b;
+}
+
+.vibe-btn.selected {
   background: #fbbf24; /* different shade when selected */
   outline: 3px solid #f59e0b;
 }
@@ -1019,4 +1024,21 @@ p, li{
 .plan-card textarea {
   min-height: 90px;
   resize: vertical;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.vibe-btn {
+  background-color: #facc15;
+  padding: 15px;
+  border-radius: 15px;
+  border: 0;
+  margin: 0px 10px;
+  font-weight: bold;
+  font-size: 17px;
 }
