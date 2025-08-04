@@ -1,5 +1,17 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Get the absolute path to the project root .env
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootEnvPath = path.resolve(__dirname, "../.env");
+
+// Load .env from project root
+dotenv.config({ path: rootEnvPath });
+
+console.log("Stripe key from env:", process.env.STRIPE_SECRET_KEY); // sanity check
+
 import express from "express";
 import Stripe from "stripe";
 import cors from "cors";
@@ -51,6 +63,7 @@ app.post("/send-itinerary-request", async (req, res) => {
 // -------------------- CREATE STRIPE CHECKOUT SESSION --------------------
 app.post("/create-checkout-session", async (req, res) => {
   const { product, cancelPath } = req.body;
+  console.log("Incoming checkout request:", req.body);
 
   if (!product?.name || !product?.price) {
     return res.status(400).json({ error: "Product name and price are required." });

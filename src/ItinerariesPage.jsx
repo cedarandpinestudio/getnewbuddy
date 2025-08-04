@@ -112,21 +112,10 @@ export default function Itineraries() {
         <h3><FaBolt className="icon" /> Quick Rec List</h3>
         <p className="price">$25 — Our “top picks” for a fast but authentic trip.</p>
         <input
-          type="text"
-          placeholder="Your name"
-          value={formData.quick.name}
-          onChange={(e) => handleChange("quick", "name", e.target.value)}
-        />
-        <input
           type="email"
           placeholder="Your email"
           value={formData.quick.email}
           onChange={(e) => handleChange("quick", "email", e.target.value)}
-        />
-        <textarea
-          placeholder="Tell us about your goals, vibe, or must‑do's..."
-          value={formData.quick.goals}
-          onChange={(e) => handleChange("quick", "goals", e.target.value)}
         />
         <button
           className="buy-button"

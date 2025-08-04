@@ -958,6 +958,7 @@ p, li{
   font-size: 1rem;
   font-family: inherit;
   transition: border 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
 
 .plan-card input:focus,
