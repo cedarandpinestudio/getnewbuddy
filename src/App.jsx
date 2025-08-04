@@ -100,16 +100,16 @@ export default function App() {
 
       {/* RIGHT COLUMN */}
       <div className="image-grid">
-        <ImageCard src={fallFolliage} />
-        <ImageCard src={poke} />
-        <ImageCard src={golf} />
-        <ImageCard src={seattleAbove} />
-        <ImageCard src={coffeeShop} />
-        <ImageCard src={summerFlowers} />
-        <ImageCard src={edgewater} />
-        <ImageCard src={sushi} />
-        <ImageCard src={edgeWater2} />
-        <ImageCard src={goldenGardens}/>
+        <ImageCard src={fallFolliage} loading="lazy" />
+        <ImageCard src={poke} loading="lazy"/>
+        <ImageCard src={golf} loading="lazy"/>
+        <ImageCard src={seattleAbove} loading="lazy"/>
+        <ImageCard src={coffeeShop} loading="lazy"/>
+        <ImageCard src={summerFlowers} loading="lazy"/>
+        <ImageCard src={edgewater} loading="lazy"/>
+        <ImageCard src={sushi} loading="lazy"/>
+        <ImageCard src={edgeWater2} loading="lazy"/>
+        <ImageCard src={goldenGardens} loading="lazy"/>
       </div>
     </div>
   );
