@@ -1,25 +1,22 @@
 // netlify/functions/create-checkout-session.js
 import Stripe from "stripe";
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 export async function handler(event) {
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: "Method Not Allowed" }),
-    };
+    return { statusCode: 405, body: JSON.stringify({ error: "Method Not Allowed" }) };
   }
 
   try {
     const { product, cancelPath } = JSON.parse(event.body);
+    console.log("Incoming checkout request:", product);
 
     if (!product?.name || !product?.price) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Product name and price are required." }),
-      };
+      return { statusCode: 400, body: JSON.stringify({ error: "Product name and price are required." }) };
     }
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const siteUrl = process.env.SITE_URL || "https://getnewbuddy.com";
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -34,19 +31,16 @@ export async function handler(event) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.SITE_URL}/success`,
-      cancel_url: `${process.env.SITE_URL}${cancelPath || ""}`,
+      success_url: `${siteUrl}/success`,
+      cancel_url: `${siteUrl}${cancelPath || ""}`,
     });
 
     return {
       statusCode: 200,
       body: JSON.stringify({ id: session.id }),
     };
-  } catch (err) {
-    console.error("Stripe Checkout Error:", err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
+  } catch (error) {
+    console.error("Stripe Checkout Error:", error);
+    return { statusCode: 500, body: JSON.stringify({ error: "Failed to create checkout session." }) };
   }
 }

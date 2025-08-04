@@ -1,10 +1,13 @@
 // utils/checkout.js
 import { loadStripe } from "@stripe/stripe-js";
 
-// ✅ Make sure you have this in your .env
-// VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
-
+// ✅ Ensure your .env has: VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+// Determine correct backend endpoint based on environment
+const checkoutEndpoint = import.meta.env.DEV
+  ? "http://localhost:4242/create-checkout-session"
+  : "/.netlify/functions/create-checkout-session";
 
 export async function handleCheckout(productName, price, cancelPath) {
   try {
@@ -15,13 +18,8 @@ export async function handleCheckout(productName, price, cancelPath) {
       return;
     }
 
-    // ✅ Decide endpoint based on environment
-    const endpoint = import.meta.env.DEV
-      ? "http://localhost:4242/create-checkout-session" // Local Express backend
-      : "/.netlify/functions/create-checkout-session"; // Netlify function in prod
-
-    // ✅ Call backend to create checkout session
-    const res = await fetch(endpoint, {
+    // ✅ Call your backend (local or Netlify Functions)
+    const res = await fetch(checkoutEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
