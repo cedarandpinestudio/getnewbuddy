@@ -1,0 +1,1021 @@
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  background: linear-gradient(to bottom, #D0E3FF, #FFF9EF);
+  background-attachment: fixed; /* prevents scrolling issues */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-container {
+  background: transparent;
+  min-height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.site-nav-logo {
+    width: 150px;
+}
+
+/* Navbar */
+.navbar {
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding-top: 10px;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0.5rem 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo img {
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1f2937; /* dark gray */
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #FFC636; /* yellow-ish hover */
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+h1, h2, h3 {
+  margin: 0 0 0.2rem;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+p, li{
+    font-size: 16px;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-spacer {
+    margin: 50px 0px;
+}
+
+.button {
+  background: #FFC636;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.button:hover {
+  background: #eab308;
+}
+
+.image-grid {
+  column-count: 2;        /* two uneven columns */
+  column-gap: 0.1rem;     /* tighter space between columns */
+}
+
+.image-card {
+  display: inline-block;  /* so it fits inside column layout */
+  width: 100%;
+  margin-bottom: 0.1rem;  /* less space between images vertically */
+  break-inside: avoid;    /* prevents breaking an image between columns */
+}
+
+.image-card img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Optional: captions tighter to the image */
+.caption {
+  font-size: 0.8rem;
+  color: #374151;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+.no-bullets {
+  list-style: none;
+  margin: 0;
+}
+
+.pic-and-text {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.prof-pic {
+    width: 60px;
+    margin-right: 15px;
+}
+
+/* booking */
+.booking-container {
+  min-height: 100vh;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.package-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.package-card {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.package-card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.package-card p {
+  margin-bottom: 1rem;
+}
+
+.package-card button {
+  background: #facc15;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.package-card button:hover {
+  background: #eab308;
+}
+
+.package-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.guide-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.guide-card {
+    display: flex;
+    align-items: center;
+}
+
+.guide-img {
+    margin-right: 20px
+}
+
+.guide-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Itineraries */
+
+.itineraries-page {
+  min-height: 100vh; /* Full browser height */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.itinerary-card {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.itinerary-card h3 {
+  margin-top: 0;
+}
+
+.itinerary-card button {
+  background: #facc15;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.itinerary-card button:hover {
+  background: #eab308;
+}
+
+.itinerary-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.itineraries-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.itineraries-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.itineraries-title h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.itineraries-title p {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.itinerary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+}
+
+.itinerary-card h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.itinerary-card p {
+  margin: 0.25rem 0;
+}
+
+.itinerary-card button {
+  margin-top: 1rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.plan-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+}
+
+.buy-button {
+  background: #facc15;
+  color: black;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.buy-button:hover {
+  background: #eab308;
+}
+
+.quick-rec {
+  background: linear-gradient(180deg, #fff8e1, #fff);
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+.buy-button {
+  background-color: #facc15;
+  color: black;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #eab308;
+}
+
+.itineraries-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section-container {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+
+.section-container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-container p {
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+.buy-button {
+  background-color: #facc15;
+  color: black;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #eab308;
+}
+
+.custom-textarea {
+  width: 80%;
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Booking Flow */
+.booking-container {
+  max-width: 700px; /* keeps form from stretching too wide */
+  margin: 0 auto; /* centers it */
+  padding: 2rem 1rem; /* space around form */
+}
+
+.booking-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.booking-title h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.booking-title p {
+  font-size: 1rem;
+  color: #4b5563; /* slate gray */
+}
+
+.booking-page {
+  min-height: 100vh; /* Always full viewport height */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.booking-flow {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.guide-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.guide-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.guide-card.selected {
+  border-color: #facc15;
+  background: #fef9c3;
+}
+
+.package-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.package-options button {
+  background: #facc15; /* yellow */
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.package-options button:hover {
+  background: #eab308; /* slightly darker yellow */
+  transform: translateY(-2px);
+}
+
+.package-options button:active {
+  transform: translateY(0px);
+}
+
+.package-options button.selected {
+  background: #fbbf24; /* different shade when selected */
+  outline: 3px solid #f59e0b;
+}
+
+.date-picker {
+  font-size: 1.1rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid #facc15;
+  border-radius: 8px;
+  background: white;
+  color: #1f2937;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.date-picker:hover {
+  border-color: #eab308;
+}
+
+.pretty-date {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #374151;
+}
+
+.pay-button {
+  background: #facc15; /* yellow */
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pay-button:hover {
+  background: #eab308; /* darker yellow on hover */
+}
+
+.pay-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.booking-step {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6; /* light grey border */
+}
+
+.booking-step h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.booking-step p {
+  margin: 0.25rem 0;
+}
+
+.step-summary {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.step-summary strong {
+  color: #111827;
+}
+
+.confirm-pay {
+  text-align: center;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 350px;
+  margin: 0 auto 20px auto;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+.value {
+  color: #333;
+}
+
+.pay-button {
+  background: #facc15; /* Tailwind yellow-400 */
+  color: #000;
+  border: none;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.pay-button:hover {
+  background: #eab308; /* Tailwind yellow-500 */
+}
+
+.confirm-pay h2 {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.confirm-pay {
+  max-width: 500px;
+  margin: 0 auto; /* Keeps the card centered */
+}
+
+/* ===== PLAN CARD CONTAINER ===== */
+.plan-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+/* ===== INPUTS & TEXTAREAS ===== */
+.plan-card input,
+.plan-card textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover & focus effect */
+.plan-card input:focus,
+.plan-card textarea:focus {
+  border-color: #facc15; /* yellow-400 */
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+  outline: none;
+}
+
+/* Textarea height & resize */
+.plan-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ===== BUTTONS ===== */
+.buy-button {
+  background-color: #facc15; /* yellow-400 */
+  color: black;
+  font-weight: bold;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.buy-button:hover {
+  background-color: #eab308; /* yellow-500 */
+}
+
+.itinerary-form {
+  max-width: 600px; /* Makes it narrower */
+  margin: 0 auto; /* Center it */
+}
+
+.itinerary-form input,
+.itinerary-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* So padding is inside */
+}
+
+.itinerary-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+
+/* Cancel */
+
+.cancel-page {
+  min-height: 100vh; /* Always full viewport height */
+  background: linear-gradient(to bottom, #D0E3FF, #FFF9EF);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.itineraries-container {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.plan-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.plan-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.plan-card input,
+.plan-card textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* ✅ padding respected */
+}
+
+.plan-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.booking-button {
+  background: #ffcc00;
+  border: none;
+  padding: 12px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.booking-button:hover {
+  background: #ffb700;
+}
+
+.itineraries-container {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.plan-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.plan-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.plan-card input,
+.plan-card textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.plan-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.booking-button {
+  background: #ffcc00;
+  border: none;
+  padding: 12px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.booking-button:hover {
+  background: #ffb700;
+}
+
+/* Narrower form & correct padding */
+.itinerary-form {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.itinerary-form input,
+.itinerary-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.itinerary-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.booking-button,
+.buy-button {
+  display: block;
+  width: auto;          /* Shrinks to fit text */
+  min-width: 180px;     /* Nice minimum size */
+  margin: 1rem auto 0 auto; /* Top margin + center horizontally */
+  padding: 0.75rem 1.5rem;
+}
+
+.itineraries-page {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.itineraries-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.itineraries-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.itineraries-header p {
+  color: #555;
+  max-width: 600px;
+  margin: 0.5rem auto 0 auto;
+}
+
+.icon {
+  color: #facc15;
+}
+
+.plan-card, .quick-rec {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-bottom: 2rem;
+}
+
+.quick-rec {
+  background: #fffbea;
+}
+
+.plan-card h3, .quick-rec h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.price {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.plan-card input,
+.plan-card textarea,
+.quick-rec input,
+.quick-rec textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plan-card input:focus,
+.plan-card textarea:focus,
+.quick-rec input:focus,
+.quick-rec textarea:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+  outline: none;
+}
+
+.buy-button {
+  display: block;
+  margin: 0 auto;
+  background: #facc15;
+  color: black;
+  font-weight: bold;
+  padding: 0.7rem 2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.buy-button:hover {
+  background: #eab308;
+}
+
+.quick-rec .plan-card input,
+.quick-rec .plan-card textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; /* ensures padding doesn’t break width */
+}
+
+.quick-rec .plan-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.plan-card input,
+.plan-card textarea {
+  display: block;               /* makes sure it’s full width */
+  width: 100% !important;        /* forces full width */
+  max-width: 100%;               /* no overflow */
+  padding: 12px;                 
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;        /* respects padding */
+  font-size: 1rem;
+}
+
+.plan-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
