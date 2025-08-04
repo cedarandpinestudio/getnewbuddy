@@ -1,15 +1,9 @@
 // utils/checkout.js
 import { loadStripe } from "@stripe/stripe-js";
 
-// ✅ Make sure your .env has VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
+// ✅ Ensure your .env has: VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-/**
- * Handle checkout with Stripe
- * @param {string} productName - Name of the product (e.g., "Half-Day Local Buddy")
- * @param {number} price - Price in USD (e.g., 150)
- * @param {string} cancelPath - Path to redirect on cancel (e.g., "/book" or "/itineraries")
- */
 export async function handleCheckout(productName, price, cancelPath) {
   try {
     const stripe = await stripePromise;
@@ -19,8 +13,8 @@ export async function handleCheckout(productName, price, cancelPath) {
       return;
     }
 
-    // ✅ Call backend to create a Stripe session
-    const res = await fetch("http://localhost:4242/create-checkout-session", {
+    // ✅ Call your Netlify Function
+    const res = await fetch("/.netlify/functions/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

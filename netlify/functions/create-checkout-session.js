@@ -12,10 +12,7 @@ export async function handler(event) {
     const { product, cancelPath } = JSON.parse(event.body);
 
     if (!product?.name || !product?.price) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Product name and price are required." })
-      };
+      return { statusCode: 400, body: JSON.stringify({ error: "Product name and price are required." }) };
     }
 
     const session = await stripe.checkout.sessions.create({

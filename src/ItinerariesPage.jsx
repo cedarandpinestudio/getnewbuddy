@@ -28,13 +28,11 @@ export default function Itineraries() {
     }));
   };
 
-  // Simple email validation
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  const handleSubmit = (planName, price) => {
+  const handleSubmit = async (planName, price) => {
     const { name, email, goals } = formData[planName];
     let valid = true;
-
     const newErrors = { ...errors };
 
     // Name validation for 1-day and 3-day
@@ -59,20 +57,25 @@ export default function Itineraries() {
 
     if (!valid) return;
 
-    // Send itinerary request to backend
-    fetch("/send-itinerary-request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        goals,
-        productName: planName,
-      }),
-    });
+    try {
+      // ✅ Call Netlify Function instead of /send-itinerary-request
+      await fetch("/.netlify/functions/send-itinerary-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          goals,
+          productName: planName,
+        }),
+      });
 
-    // Proceed to checkout
-    handleCheckout(`${planName} Plan`, price, "/itineraries");
+      // ✅ Proceed to checkout via Netlify Function Stripe integration
+      handleCheckout(`${planName} Plan`, price, "/itineraries");
+    } catch (error) {
+      console.error("Error sending itinerary request:", error);
+      alert("Something went wrong sending your request. Please try again.");
+    }
   };
 
   return (
@@ -97,7 +100,7 @@ export default function Itineraries() {
           onChange={(e) => handleChange("oneDay", "name", e.target.value)}
         />
         {errors.oneDay.name && <p className="error-text">{errors.oneDay.name}</p>}
-        
+
         <input
           type="email"
           placeholder="Your email"
