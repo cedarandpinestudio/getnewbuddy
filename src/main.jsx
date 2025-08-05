@@ -7,6 +7,7 @@ import BookingPage from './BookingPage.jsx'
 import ItinerariesPage from './ItinerariesPage.jsx'
 import CancelPage from './CancelPage.jsx'
 import ScrollToTop from "./ScrollToTop";
+import SuccessPage from './Success.jsx'
 
 import './styles.css'
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/book" element={<BookingPage />} />
         <Route path="/itineraries" element={<ItinerariesPage />} />
         <Route path="/cancel" element={<CancelPage />} />
+        <Route path="/success" element={<SuccessPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

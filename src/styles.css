@@ -1050,6 +1050,7 @@ p, li{
   margin: 7px 10px;
   font-weight: bold;
   font-size: 17px;
+  color: #081F5C;
 }
 
 .step-card {
@@ -1385,3 +1386,16 @@ a .pay-button {
 }
 }
 
+
+.success-button {
+    background-color: #facc15;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 17px;
+    color: #081F5C;
+    max-width: 342px;
+    display: block;
+}
