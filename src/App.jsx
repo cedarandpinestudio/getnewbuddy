@@ -39,6 +39,10 @@ export default function App() {
             <p>Pick Your Vibe: Foodie, artsy, nature lover, or a mix.</p>
             <p>We match you with a vetted Seattle local.</p>
             <p>Explore together. Custom-planned day + candid photos.</p>
+        {/* Hide on mobile */}
+        <Link to="/book" className="hide-on-mobile">
+          <button className="button">Book Your Local Buddy</button>
+        </Link>
         </section>
 
         {/* <section className="section section-spacer">
@@ -49,10 +53,6 @@ export default function App() {
           <h2>🗺️ Explore Together</h2>
         </section> */}
 
-        {/* Hide on mobile */}
-        <Link to="/book" className="hide-on-mobile">
-          <button className="button">Book Your Local Buddy</button>
-        </Link>
 
         <section className="section section-spacer">
           <h2>💼 Packages and Pricing</h2>
@@ -83,36 +83,52 @@ export default function App() {
         </section>
 
         <section className="section">
-          <h2>🤠 Meet The Locals</h2>
-          <div className='pic-and-text'>
-            <img className="prof-pic" src={aisha} alt="Aisha"/>
-            <p><strong>Aisha</strong> — Raised in Seattle. Loves coffee shops, views, and ferry rides.</p>
+          <h2 className='locals-title'>🤠 Meet The Locals</h2>
+          <div className='guide-card'>
+            <div className='pic-and-text'>
+              <img className="prof-pic" src={aisha} alt="Aisha"/>
+              <div>
+                <div className='guide-name-and-rating'>
+                  <p className='guide-name-and-text'><strong>Aisha (29)</strong> </p>
+                  <p className='guide-rating'>⭐️⭐️⭐️⭐️⭐️</p>
+                </div>
+                <p className='guide-name-and-text'>Raised in Seattle. Loves coffee shops, views, and ferry rides.</p>
+                <p className='guide-review-text'>"5 stars. I had an amazing day in Seattle with Aisha"—Christina B.</p>
+              </div>
+            </div>
           </div>
-          <div className='pic-and-text'>
-            <img className="prof-pic" src={jan} alt="Jan"/>
-            <p><strong>Jan</strong> — From Guam. Loves breweries, festivals, meeting people.</p>
+          <div className='guide-card'>
+            <div className='pic-and-text'>
+              <img className="prof-pic" src={jan} alt="Jan"/>
+              <div>
+                <div className='guide-name-and-rating'>
+                  <p className='guide-name-and-text'><strong>Jan (29)</strong> </p>
+                  <p className='guide-rating'>⭐️⭐️⭐️⭐️⭐️</p>
+                </div>
+                <p className='guide-name-and-text'>Originally from Guam. Loves breweries, festivals, meeting people.</p>
+                <p className='guide-review-text'>"Janel was so fun and informative."—Brittany M.</p>
+              </div>
+            </div>
           </div>
-          <div className='pic-and-text'>
-            <img className="prof-pic" src={jacob} alt="Jacob"/>
-            <p><strong>Jacob</strong> — From Milwaukee. Loves Seattle, music, coffee.</p>
+          <div className='guide-card'>
+            <div className='pic-and-text'>
+              <img className="prof-pic" src={jacob} alt="jacob"/>
+              <div>
+                <div className='guide-name-and-rating'>
+                  <p className='guide-name-and-text'><strong>Jacob (32)</strong> </p>
+                  <p className='guide-rating'>⭐️⭐️⭐️⭐️⭐️</p>
+                </div>
+                <p className='guide-name-and-text'>Boy from Milwaukee. Loves Seattle, music, coffee.</p>
+                <p className='guide-review-text'>"I loved meeting Jacob and exploring the town! 10/10 experience."—Felicidad S.</p>
+              </div>
+            </div>
           </div>
           {/* Hide on mobile */}
           <Link to="/book" className="hide-on-mobile">
-            <button className="button">Book Your Local Buddy</button>
+            <button className="button secondary-book-button">Book Your Local Buddy</button>
           </Link>
         </section>
 
-        <section className="section section-spacer">
-          <h2>📝 The Reviews Are In</h2>
-          <p>⭐️⭐️⭐️⭐️⭐️</p>
-          <p>
-            <b><i>“What was a lonely post-breakup trip turned into a social getaway”</i></b> — Christina B.
-          </p>
-          <p>⭐️⭐️⭐️⭐️⭐️</p>
-          <p>
-            <b><i>“I loved meeting Jacob and exploring the town! 10/10 experience.”</i></b> — Felicidad S.
-          </p>
-        </section>
         <div className='cedar-pine-text hide-on-mobile'>site designed & engineered by <img src={cp} className='cedar-pine-logo'/></div>
         <div className='copyright-text hide-on-mobile'>© 2025 All rights Reserved. Meadow North, LLC.</div>
       </div>
@@ -125,14 +141,14 @@ export default function App() {
         <ImageCard src={seattleAbove} loading="lazy"/>
         <ImageCard src={coffeeShop} loading="lazy"/>
         <ImageCard src={snowyVillage} loading="lazy"/>
-        <ImageCard src={edgewater} loading="lazy"/>
+        {/* <ImageCard src={edgewater} loading="lazy"/> */}
         <ImageCard src={summerFlowers} loading="lazy"/>
-        <ImageCard src={edgeWater2} loading="lazy"/>
-        <ImageCard src={sushi} loading="lazy"/>
-        <ImageCard src={kirkland} loading="lazy"/>
+        {/* <ImageCard src={edgeWater2} loading="lazy"/> */}
+        {/* <ImageCard src={sushi} loading="lazy"/> */}
+        {/* <ImageCard src={kirkland} loading="lazy"/> */}
         <ImageCard src={mariners} loading="lazy"/>
-        <ImageCard src={alpine} loading="lazy"/>
-        <ImageCard src={fremont} loading="lazy"/>
+        {/* <ImageCard src={alpine} loading="lazy"/> */}
+        {/* <ImageCard src={fremont} loading="lazy"/> */}
       </div>
 
       {/* Floating Book Button - only visible on mobile */}

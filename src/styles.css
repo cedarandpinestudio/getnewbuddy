@@ -91,7 +91,7 @@ p, li{
 }
 
 .section-spacer {
-    margin: 50px 0px;
+    margin: 30px 0px;
 }
 
 .button {
@@ -143,7 +143,6 @@ p, li{
 .pic-and-text {
     display: flex;
     align-items: center;
-    padding-bottom: 15px;
 }
 
 .prof-pic {
@@ -353,12 +352,6 @@ p, li{
   padding: 2rem;
   border-radius: 16px;
 }
-
-/* .section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 1rem;
-} */
 
 .section-container {
   max-width: 800px;
@@ -1418,5 +1411,36 @@ a .pay-button {
 }
 
 .copyright-text {
+  margin-top: 10px;
+}
+
+.locals-title {
+  margin-bottom: 10px;
+}
+
+.guide-card {
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.guide-name-and-rating {
+  display: flex;
+  flex-direction: row;
+}
+.guide-rating {
+  margin: 0;
+  margin-left: 5px;
+}
+
+.guide-name-and-text {
+  margin: 0px;
+}
+
+.guide-review-text {
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.secondary-book-button {
   margin-top: 10px;
 }
