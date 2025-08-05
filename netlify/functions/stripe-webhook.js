@@ -59,8 +59,8 @@ export async function handler(event) {
       // 2️⃣ Send booking notification to owner
       // ---------------------------
       const ownerEmailPayload = {
-        sender: { name: "NewBuddy Booking Bot", email: "aishainparis@gmail.com" },
-        to: [{ email: "YOUR_EMAIL@example.com" }], // TODO: replace with your real email
+        sender: { name: "NewBuddy Booking Bot", email: "hello@getnewbuddy.com" },
+        to: [{ email: "aishainparis@gmail.com" }], // TODO: replace with your real email
         subject: "📢 New NewBuddy Booking!",
         htmlContent: `
           <html>
