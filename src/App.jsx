@@ -124,10 +124,10 @@ export default function App() {
         <ImageCard src={seattleAbove} loading="lazy"/>
         <ImageCard src={coffeeShop} loading="lazy"/>
         <ImageCard src={snowyVillage} loading="lazy"/>
-        <ImageCard src={summerFlowers} loading="lazy"/>
         <ImageCard src={edgewater} loading="lazy"/>
-        <ImageCard src={sushi} loading="lazy"/>
+        <ImageCard src={summerFlowers} loading="lazy"/>
         <ImageCard src={edgeWater2} loading="lazy"/>
+        <ImageCard src={sushi} loading="lazy"/>
         <ImageCard src={kirkland} loading="lazy"/>
         <ImageCard src={mariners} loading="lazy"/>
         <ImageCard src={alpine} loading="lazy"/>
