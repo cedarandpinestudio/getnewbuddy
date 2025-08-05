@@ -7,12 +7,17 @@ import golf from './assets/golf-img.svg';
 import poke from './assets/poke-img.svg';
 import seattleAbove from './assets/seattle-above.svg';
 import snowyVillage from './assets/snowy-village-img.svg';
+import hiking from './assets/hiking.svg';
 import summerFlowers from './assets/summer-flowers.svg';
+import fremont from './assets/fremont.svg';
+import alpine from './assets/alpine.svg';
+import kirkland from './assets/kirkland.svg';
+import mariners from './assets/mariners.svg';
 import sushi from './assets/sushi-img.svg';
 import aisha from './assets/aisha-prof-pic.svg';
 import jan from './assets/jan-prof-pic.svg';
 import jacob from './assets/jacob-prof-pic.svg';
-import cp from './assets/cedarpinelogo.svg'
+import cp from './assets/cedarpinelogo.svg';
 import { Link } from 'react-router-dom';
 
 export default function App() {
@@ -118,11 +123,15 @@ export default function App() {
         <ImageCard src={golf} loading="lazy"/>
         <ImageCard src={seattleAbove} loading="lazy"/>
         <ImageCard src={coffeeShop} loading="lazy"/>
+        <ImageCard src={snowyVillage} loading="lazy"/>
         <ImageCard src={summerFlowers} loading="lazy"/>
         <ImageCard src={edgewater} loading="lazy"/>
         <ImageCard src={sushi} loading="lazy"/>
         <ImageCard src={edgeWater2} loading="lazy"/>
-        <ImageCard src={goldenGardens} loading="lazy"/>
+        <ImageCard src={kirkland} loading="lazy"/>
+        <ImageCard src={mariners} loading="lazy"/>
+        <ImageCard src={alpine} loading="lazy"/>
+        <ImageCard src={fremont} loading="lazy"/>
       </div>
 
       {/* Floating Book Button - only visible on mobile */}
