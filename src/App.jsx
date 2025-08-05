@@ -114,6 +114,7 @@ export default function App() {
           </p>
         </section>
         <div className='cedar-pine-text hide-on-mobile'>site designed & engineered by <img src={cp} className='cedar-pine-logo'/></div>
+        <div className='copyright-text hide-on-mobile'>© 2025 All rights Reserved. Meadow North, LLC.</div>
       </div>
 
       {/* RIGHT COLUMN */}
