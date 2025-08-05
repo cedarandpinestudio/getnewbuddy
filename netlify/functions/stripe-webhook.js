@@ -2,7 +2,7 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// ✅ Netlify raw body parsing for Stripe signature verification
+// ✅ Required for Stripe signature verification
 export const config = {
   bodyParser: false,
 };
@@ -12,7 +12,7 @@ export async function handler(event) {
   let stripeEvent;
 
   try {
-    // Read raw body as buffer
+    // Read raw body
     const rawBody = Buffer.from(event.body, "utf8");
 
     // Verify Stripe webhook signature
@@ -28,16 +28,18 @@ export async function handler(event) {
       const session = stripeEvent.data.object;
       const customerEmail = session.customer_details?.email;
 
-      console.log("📦 Checkout session completed for:", customerEmail);
+      console.log("📦 Checkout completed for:", customerEmail);
 
       if (!customerEmail) {
-        console.error("❌ No customer email found in session");
+        console.error("❌ No customer email found");
         return { statusCode: 400, body: "No customer email found" };
       }
 
-      // 📧 Send confirmation email via Brevo
-      const brevoPayload = {
-        sender: { name: "NewBuddy", email: "aishainparis@gmail.com" },
+      // ---------------------------
+      // 1️⃣ Send confirmation to customer
+      // ---------------------------
+      const customerEmailPayload = {
+        sender: { name: "NewBuddy", email: "hello@getnewbuddy.com" },
         to: [{ email: customerEmail }],
         subject: "Your NewBuddy Booking Confirmation",
         htmlContent: `
@@ -50,34 +52,61 @@ export async function handler(event) {
         `,
       };
 
-      console.log("📨 Sending Brevo email to:", customerEmail);
-      console.log("📨 Brevo payload:", JSON.stringify(brevoPayload));
+      console.log("📨 Sending confirmation email to:", customerEmail);
+      await sendBrevoEmail(customerEmailPayload);
 
-      const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "api-key": process.env.BREVO_API_KEY,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(brevoPayload),
-      });
+      // ---------------------------
+      // 2️⃣ Send booking notification to owner
+      // ---------------------------
+      const ownerEmailPayload = {
+        sender: { name: "NewBuddy Booking Bot", email: "aishainparis@gmail.com" },
+        to: [{ email: "YOUR_EMAIL@example.com" }], // TODO: replace with your real email
+        subject: "📢 New NewBuddy Booking!",
+        htmlContent: `
+          <html>
+            <body>
+              <h2>New Booking Alert 🚀</h2>
+              <p><strong>Customer Email:</strong> ${customerEmail}</p>
+              <p><strong>Amount Paid:</strong> $${session.amount_total / 100}</p>
+              <p><strong>Session ID:</strong> ${session.id}</p>
+            </body>
+          </html>
+        `,
+      };
 
-      const brevoText = await brevoRes.text();
-      console.log("📧 Brevo API response:", brevoRes.status, brevoText);
+      console.log("📨 Sending owner notification email to: YOUR_EMAIL@example.com");
+      await sendBrevoEmail(ownerEmailPayload);
 
-      if (!brevoRes.ok) {
-        throw new Error(
-          `Brevo send failed: ${brevoRes.status} ${brevoText}`
-        );
-      }
-
-      console.log("✅ Brevo email sent successfully to:", customerEmail);
+      console.log("✅ Both emails sent successfully");
     }
 
     return { statusCode: 200, body: JSON.stringify({ received: true }) };
   } catch (err) {
     console.error("❌ Webhook error:", err.message);
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
+  }
+}
+
+// 📧 Helper function to send Brevo emails
+async function sendBrevoEmail(payload) {
+  try {
+    const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "api-key": process.env.BREVO_API_KEY,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const brevoText = await brevoRes.text();
+    console.log("📧 Brevo API response:", brevoRes.status, brevoText);
+
+    if (!brevoRes.ok) {
+      throw new Error(`Brevo send failed: ${brevoRes.status} ${brevoText}`);
+    }
+  } catch (error) {
+    console.error("❌ Brevo send error:", error.message);
   }
 }
