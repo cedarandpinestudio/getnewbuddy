@@ -1399,3 +1399,15 @@ a .pay-button {
     max-width: 342px;
     display: block;
 }
+
+.cedar-pine-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.cedar-pine-logo {
+  width: 135px;
+  margin-left: 10px;
+}

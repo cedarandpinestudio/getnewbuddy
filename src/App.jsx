@@ -12,6 +12,7 @@ import sushi from './assets/sushi-img.svg';
 import aisha from './assets/aisha-prof-pic.svg';
 import jan from './assets/jan-prof-pic.svg';
 import jacob from './assets/jacob-prof-pic.svg';
+import cp from './assets/cedarpinelogo.svg'
 import { Link } from 'react-router-dom';
 
 export default function App() {
@@ -107,6 +108,7 @@ export default function App() {
             <b><i>“I loved meeting Jacob and exploring the town! 10/10 experience.”</i></b> — Felicidad S.
           </p>
         </section>
+        <div className='cedar-pine-text hide-on-mobile'>site designed & engineered by <img src={cp} className='cedar-pine-logo'/></div>
       </div>
 
       {/* RIGHT COLUMN */}
@@ -125,8 +127,8 @@ export default function App() {
 
       {/* Floating Book Button - only visible on mobile */}
       <Link to="/book">
-        <button className="floating-book-btn">📅 Book Now</button>
-      </Link>
+        <button className="floating-book-btn hide-on-desktop">📅 Book Now</button>
+      </Link>      
     </div>
   );
 }
