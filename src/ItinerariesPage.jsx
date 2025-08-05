@@ -82,7 +82,7 @@ export default function Itineraries() {
   return (
     <div className="itineraries-page">
       <div className="itineraries-header">
-        <h1><FaMapMarkerAlt className="icon" /> Custom Seattle Itineraries</h1>
+        <h1><FaMapMarkerAlt className="icon hide-on-mobile"/><h1 className="hide-on-desktop">✨</h1>  Custom Seattle Itineraries</h1>
         <p>
           Explore Seattle like a local — even without a guide. Get a curated plan tailored
           to your vibe and interests. Tell us what you’re looking for, and we’ll email your

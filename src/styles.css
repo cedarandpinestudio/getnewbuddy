@@ -477,13 +477,12 @@ p, li{
   min-height: 100vh; /* Always full viewport height */
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 2rem;
 }
 
 .booking-flow {
   max-width: 800px;
   margin: auto;
-  padding: 2rem;
+  padding-top: 1rem;
 }
 
 .guide-list {
@@ -534,9 +533,19 @@ p, li{
   outline: 3px solid #f59e0b;
 }
 
+.vibe-options {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
 .vibe-btn.selected {
   background: #fbbf24; /* different shade when selected */
   outline: 3px solid #f59e0b;
+}
+
+.vibe-btn {
+  width: 100%;
 }
 
 .date-picker {
@@ -1038,7 +1047,7 @@ p, li{
   padding: 15px;
   border-radius: 15px;
   border: 0;
-  margin: 0px 10px;
+  margin: 7px 10px;
   font-weight: bold;
   font-size: 17px;
 }
@@ -1080,6 +1089,7 @@ p, li{
   width: 100%;
   max-width: 320px;
   transition: border-color 0.2s ease;
+  margin-top: 10px;
 }
 
 .styled-input:focus {
@@ -1132,7 +1142,7 @@ p, li{
   .section-container,
   .booking-container,
   .itineraries-container {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem;
   }
 
   /* Buttons full-width for easier tapping */
@@ -1280,6 +1290,12 @@ a .pay-button {
   }
 }
 
+@media (min-width: 769px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+
 /* ===== Mobile Navbar Fixes ===== */
 @media (max-width: 768px) {
   /* Center the logo in the navbar */
@@ -1299,7 +1315,7 @@ a .pay-button {
   .site-nav-logo {
     display: block;
     margin: 0 auto;
-    height: 40px;
+    height: 25px;
     width: auto;
   }
 }
@@ -1308,7 +1324,7 @@ a .pay-button {
   .floating-book-btn {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 22px;
     background: #FFC636;
     color: black;
     font-weight: bold;
@@ -1323,4 +1339,49 @@ a .pay-button {
   .floating-book-btn:hover {
     background: #eab308;
   }
+
+  .section-spacer {
+    margin: 0px;
+    margin-bottom: 30px;
+  }
+  .title-text, .title-subtext {
+    text-align: center;
+  }
+
+  .mobile-button {
+    display: block;/* lets margin auto work */
+    margin: 0 auto;   
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .top-spacer {
+    margin-top: 2rem;
+  }
+
+  .package-options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .styled-input {
+    max-width: 266px;
+  }
+  
+  .itineraries-page {
+    padding-top: 1rem;
+  }
+
+  .itineraries-header h1 {
+    display: block;
+  }
+
+  .vibe-options {
+  /* display: flex; */
+  /* flex-direction: row; */
+  flex-wrap: wrap;
 }
+}
+

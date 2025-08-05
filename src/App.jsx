@@ -20,12 +20,15 @@ export default function App() {
 
       {/* LEFT COLUMN */}
       <div>
-        <section className="section section-spacer">
-          <h1>See Seattle Like a Local</h1>
-          <p>Skip the tourist traps. Explore with a friendly, vetted local.</p>
+        <section className="">
+          <h1 className='title-text'>See Seattle Like a Local</h1>
+          <p className='title-subtext'>Skip the tourist traps. Explore with a friendly, vetted local.</p>
         </section>
 
-        <section className="section section-spacer">
+        <Link to="/book" className="hide-on-desktop">
+          <button className="button section-spacer mobile-button">Book Your Local Buddy</button>
+        </Link>
+        <section className="section section-spacer top-spacer">
           <h2>☕ How It Works</h2>
             <p>Pick Your Vibe: Foodie, artsy, nature lover, or a mix.</p>
         </section>
@@ -33,7 +36,6 @@ export default function App() {
         <section className="section section-spacer">
           <h2>👯‍♀️ Meet Your Local Friend</h2>
             <p>We match you with a vetted Seattle local.</p>
-            <p>Explore Together: Custom-planned day + candid photos.</p>
         </section>
 
         <section className="section section-spacer">
@@ -60,7 +62,11 @@ export default function App() {
           <p>For when you don't need a guide but would like a plan.</p>
           {/* Hide on mobile */}
           <Link to="/itineraries" className="hide-on-mobile">
-            <button className="button">Learn more about itineraries</button>
+            <button className="button">Learn More About Itineraries</button>
+          </Link>
+          {/* Hide on desktop */}
+          <Link to="/itineraries" className="hide-on-desktop">
+            <button className="button section-spacer mobile-button">Get An Itinerary</button>
           </Link>
         </section>
 
@@ -104,7 +110,7 @@ export default function App() {
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="image-grid">
+      <div className="image-grid hide-on-mobile">
         <ImageCard src={fallFolliage} loading="lazy" />
         <ImageCard src={poke} loading="lazy"/>
         <ImageCard src={golf} loading="lazy"/>
