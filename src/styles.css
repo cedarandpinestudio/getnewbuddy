@@ -7,6 +7,7 @@ body {
   background-attachment: fixed; /* prevents scrolling issues */
   background-repeat: no-repeat;
   background-size: cover;
+  color: #081F5C;
 }
 
 .app-container {
@@ -1327,7 +1328,7 @@ a .pay-button {
     bottom: 20px;
     right: 22px;
     background: #FFC636;
-    color: black;
+    color: #081F5C;
     font-weight: bold;
     font-size: 1.1rem;
     padding: 0.9rem 1.4rem;
@@ -1352,6 +1353,10 @@ a .pay-button {
   .mobile-button {
     display: block;/* lets margin auto work */
     margin: 0 auto;   
+  }
+
+  .mobile-button-secondary {
+    background-color: white;
   }
 
   .section {
