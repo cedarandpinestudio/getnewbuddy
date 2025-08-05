@@ -1,43 +1,52 @@
-// netlify/functions/stripe-webhook.js
 import Stripe from "stripe";
-import fetch from "node-fetch"; // for calling Brevo API
+import fetch from "node-fetch";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export async function handler({ body, headers }) {
-  const sig = headers["stripe-signature"];
+// ✅ Needed so Netlify gives us raw body
+export const config = {
+  bodyParser: false,
+};
+
+export async function handler(event) {
+  const sig = event.headers["stripe-signature"];
+  let stripeEvent;
 
   try {
-    const event = stripe.webhooks.constructEvent(
-      body,
+    // Read raw body for signature verification
+    const rawBody = Buffer.from(event.body, "utf8");
+    stripeEvent = stripe.webhooks.constructEvent(
+      rawBody,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
 
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
+    if (stripeEvent.type === "checkout.session.completed") {
+      const session = stripeEvent.data.object;
+      const email = session.customer_details?.email;
 
-      // Send email via Brevo API
+      console.log("✅ Payment completed for:", email);
+
+      // Send Brevo confirmation email
       await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
-          "accept": "application/json",
+          accept: "application/json",
           "api-key": process.env.BREVO_API_KEY,
-          "content-type": "application/json"
+          "content-type": "application/json",
         },
         body: JSON.stringify({
-          sender: { name: "NewBuddy", email: "aishainparis@gmail.com" },
-          to: [{ email: session.customer_details.email }],
+          sender: { name: "NewBuddy", email: "aishainparis@gmailß.com" },
+          to: [{ email }],
           subject: "Your NewBuddy Booking Confirmation",
-          htmlContent: `<html><body><p>Thanks for booking your NewBuddy day!</p></body></html>`
-        })
+          htmlContent: `<p>Thanks for booking with NewBuddy!</p>`,
+        }),
       });
     }
 
     return { statusCode: 200, body: JSON.stringify({ received: true }) };
   } catch (err) {
-    console.error("Webhook error:", err);
+    console.error("❌ Webhook Error:", err.message);
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
   }
 }
-ß
