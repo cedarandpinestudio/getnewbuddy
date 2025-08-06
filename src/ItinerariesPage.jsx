@@ -93,7 +93,7 @@ export default function Itineraries() {
       {/* 1-Day Plan */}
       <div className="plan-card">
         <h3>1‑Day Plan</h3>
-        <p className="price">$50 — Full‑day schedule with dining & activity recommendations.</p>
+        <p className="price">$39 — Full‑day schedule with dining & activity recommendations.</p>
         <input
           type="text"
           placeholder="Your name"
@@ -117,7 +117,7 @@ export default function Itineraries() {
         />
         <button
           className="buy-button"
-          onClick={() => handleSubmit("oneDay", 50)}
+          onClick={() => handleSubmit("oneDay", 39)}
         >
           Buy 1‑Day Plan
         </button>
@@ -126,7 +126,7 @@ export default function Itineraries() {
       {/* 3-Day Plan */}
       <div className="plan-card">
         <h3>3‑Day Plan</h3>
-        <p className="price">$120 — Three days of curated activities & food stops.</p>
+        <p className="price">$89 — Three days of curated activities & food stops.</p>
         <input
           type="text"
           placeholder="Your name"
@@ -150,7 +150,7 @@ export default function Itineraries() {
         />
         <button
           className="buy-button"
-          onClick={() => handleSubmit("threeDay", 120)}
+          onClick={() => handleSubmit("threeDay", 89)}
         >
           Buy 3‑Day Plan
         </button>
@@ -159,7 +159,7 @@ export default function Itineraries() {
       {/* Quick Rec List */}
       <div className="quick-rec">
         <h3><FaBolt className="icon" /> Quick Rec List</h3>
-        <p className="price">$25 — Our “top picks” for a fast but authentic trip.</p>
+        <p className="price">$15 — Our “top picks” for a fast but authentic trip.</p>
         <input
           type="email"
           placeholder="Your email"
@@ -170,7 +170,7 @@ export default function Itineraries() {
 
         <button
           className="buy-button"
-          onClick={() => handleSubmit("quick", 25)}
+          onClick={() => handleSubmit("quick", 15)}
         >
           Buy Quick Rec List
         </button>

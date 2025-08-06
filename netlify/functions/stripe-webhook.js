@@ -39,13 +39,13 @@ export async function handler(event) {
       // 1️⃣ Send confirmation to customer
       // ---------------------------
       const customerEmailPayload = {
-        sender: { name: "NewBuddy", email: "hello@getnewbuddy.com" },
+        sender: { name: "newbuddy", email: "hello@getnewbuddy.com" },
         to: [{ email: customerEmail }],
-        subject: "Your NewBuddy Booking Confirmation",
+        subject: "Your newbuddy Booking Confirmation",
         htmlContent: `
           <html>
             <body>
-              <h2>Thanks for booking your NewBuddy day in Seattle! 🎉</h2>
+              <h2>Thanks for booking your newbuddy day in Seattle! 🎉</h2>
               <p>We’ll be in touch soon with your host details and itinerary.</p>
             </body>
           </html>
@@ -59,9 +59,9 @@ export async function handler(event) {
       // 2️⃣ Send booking notification to owner
       // ---------------------------
       const ownerEmailPayload = {
-        sender: { name: "NewBuddy Booking Bot", email: "hello@getnewbuddy.com" },
+        sender: { name: "newbuddy Booking Bot", email: "hello@getnewbuddy.com" },
         to: [{ email: "aishainparis@gmail.com" }], // TODO: replace with your real email
-        subject: "📢 New NewBuddy Booking!",
+        subject: "📢 New newbuddy Booking!",
         htmlContent: `
           <html>
             <body>

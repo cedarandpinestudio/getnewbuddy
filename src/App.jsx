@@ -36,8 +36,8 @@ export default function App() {
         </Link>
         <section className="section section-spacer top-spacer">
           <h2>☕ How It Works</h2>
-            <p>Pick Your Vibe: Foodie, artsy, nature lover, or a mix.</p>
-            <p>We match you with a vetted Seattle local.</p>
+            <p>Pick Your Vibe: Foodie, Artsy, Nature Lover, or a mix.</p>
+            <p>You pick a vetted Seattle local.</p>
             <p>Explore together. Custom-planned day + candid photos.</p>
         {/* Hide on mobile */}
         <Link to="/book" className="hide-on-mobile">
@@ -56,21 +56,21 @@ export default function App() {
 
         <section className="section section-spacer">
           <h2>💼 Packages and Pricing</h2>
-          <p>Half-Day with Guide (4 hrs) — <strong>$150</strong></p>
-          <p>Full Day with Guide (8 hrs) — <strong>$250</strong></p>
+          <p>Half-Day with Guide (4 hrs) — <strong>$125</strong></p>
+          <p>Full Day with Guide (8 hrs) — <strong>$225</strong></p>
           <p>Includes itinerary planning, guiding, and candid photos.</p>
         </section>
 
         <section className="section">
           <h3>📍 Custom Itinerary</h3>
-          <p>1-Day Curated Plan — <b>$50</b></p>
-          <p>3-Day Curated Plan — <b>$120</b></p>
+          <p>1-Day Curated Plan — <b>$39</b></p>
+          <p>3-Day Curated Plan — <b>$89</b></p>
           <p>For when you don't need a guide but would like a plan.</p>
         </section>
 
         <section className="section section-spacer">
           <h3>📋 Quick Rec List</h3>
-          <p>Curated "top picks" list — <b>$25</b></p>
+          <p>Curated "top picks" list — <b>$15</b></p>
           <p>Best for short trips or last-minute planning.</p>
           {/* Hide on mobile */}
           <Link to="/itineraries" className="hide-on-mobile">
@@ -129,7 +129,14 @@ export default function App() {
           </Link>
         </section>
 
+       <a
+        href="https://cedarandpine.studio" // Replace with your desired URL
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cedar-pine-link"
+      >
         <div className='cedar-pine-text hide-on-mobile'>site designed & engineered by <img src={cp} className='cedar-pine-logo'/></div>
+      </a>
         <div className='copyright-text hide-on-mobile'>© 2025 All rights Reserved. Meadow North, LLC.</div>
       </div>
 

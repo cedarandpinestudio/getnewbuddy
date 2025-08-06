@@ -94,19 +94,19 @@ export default function BookingFlow() {
               className={`package-btn ${selectedPackage === "Half-Day" ? "selected" : ""}`}
               onClick={() => {
                 setSelectedPackage("Half-Day");
-                setPrice(150);
+                setPrice(125);
               }}
             >
-              Half-Day (4 hrs) — $150
+              Half-Day (4 hrs) — $125
             </button>
             <button
               className={`package-btn ${selectedPackage === "Full-Day" ? "selected" : ""}`}
               onClick={() => {
                 setSelectedPackage("Full-Day");
-                setPrice(250);
+                setPrice(225);
               }}
             >
-              Full-Day (8 hrs) — $250
+              Full-Day (8 hrs) — $225
             </button>
           </div>
         </div>
