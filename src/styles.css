@@ -1448,3 +1448,47 @@ a .pay-button {
 .cedar-pine-link {
   color: #081F5C;
 }
+
+/* FAQ */
+.accordion-item {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 8px;
+}
+
+.accordion-header {
+  background: white;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 10px;
+}
+
+.accordion-header:hover {
+  background: #f0f4ff;
+}
+
+.accordion-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-inner {
+  padding: 0 16px 16px 16px;
+  font-size: 16px;
+  color: #444;
+  line-height: 1.5;
+}

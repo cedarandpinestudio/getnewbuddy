@@ -6,8 +6,9 @@ import Navbar from "./Navbar.jsx"
 import BookingPage from './BookingPage.jsx'
 import ItinerariesPage from './ItinerariesPage.jsx'
 import CancelPage from './CancelPage.jsx'
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./ScrollToTop"
 import SuccessPage from './Success.jsx'
+import SeattleFAQPage from './Seattlefaq.jsx'
 
 import './styles.css'
 
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/itineraries" element={<ItinerariesPage />} />
         <Route path="/cancel" element={<CancelPage />} />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/seattledeets" element={<SeattleFAQPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
