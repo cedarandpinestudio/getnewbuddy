@@ -20,8 +20,8 @@ export async function handler(event) {
     );
 
     await brevo.sendTransacEmail({
-      sender: { email: "youremail@domain.com", name: "Newbuddy" },
-      to: [{ email: "youremail@domain.com" }],
+      sender: { email: "hello@getnewbuddy.com", name: "newbuddy" },
+      to: [{ email: "hello@getnewbuddy.com" }],
       subject: `New Itinerary Request – ${productName}`,
       htmlContent: `
         <h2>New Itinerary Request</h2>

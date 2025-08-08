@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import fetch from "node-fetch";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -60,7 +61,7 @@ export async function handler(event) {
       // ---------------------------
       const ownerEmailPayload = {
         sender: { name: "newbuddy Booking Bot", email: "hello@getnewbuddy.com" },
-        to: [{ email: "aishainparis@gmail.com" }], // TODO: replace with your real email
+        to: [{ email: "hello@getnewbuddy.com" }],
         subject: "📢 New newbuddy Booking!",
         htmlContent: `
           <html>
@@ -74,7 +75,7 @@ export async function handler(event) {
         `,
       };
 
-      console.log("📨 Sending owner notification email to: YOUR_EMAIL@example.com");
+      console.log("📨 Sending owner notification email to: hello@getnewbuddy.com");
       await sendBrevoEmail(ownerEmailPayload);
 
       console.log("✅ Both emails sent successfully");
