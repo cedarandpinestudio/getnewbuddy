@@ -187,15 +187,6 @@ export default function BookingFlow() {
             className={`styled-input ${contactEmailError ? "error-input" : ""}`}
           />
           {contactEmailError && <p className="error-text">{contactEmailError}</p>}
-
-          {/* Optional notes field (you can hide or keep) */}
-          <textarea
-            placeholder="Any notes or preferences? (optional)"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            className="styled-textarea"
-            rows={3}
-          />
         </div>
       )}
 
