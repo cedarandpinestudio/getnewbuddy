@@ -8,9 +8,15 @@ export const config = { bodyParser: false };
 export async function handler(event) {
   const sig = event.headers["stripe-signature"];
   try {
-    const rawBody = Buffer.from(event.body, "utf8");
-    const evt = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    const rawBody = event.isBase64Encoded
+      ? Buffer.from(event.body, "base64")
+      : Buffer.from(event.body, "utf8");
 
+    const evt = stripe.webhooks.constructEvent(
+      rawBody,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
     if (evt.type === "checkout.session.completed") {
       const session = evt.data.object;
 

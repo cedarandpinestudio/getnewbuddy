@@ -21,6 +21,7 @@ export async function handler(event) {
 
     // Metadata MUST be strings
     const md = {
+      productName: product.name,
       guide: booking.guide ? String(booking.guide) : "",
       bookingType: booking.bookingType ? String(booking.bookingType) : "",
       date: booking.date ? String(booking.date) : "",
