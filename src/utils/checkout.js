@@ -61,7 +61,13 @@ export async function handleCheckout({
   productName,
   price,
   cancelPath = "/",
-  booking = {},
+  booking = {
+    guide: selectedGuideName,
+    bookingType: selectedPackage,
+    date: selectedDateISO,
+    hours: selectedHours,
+    notes: userNotes
+  },
 }) {
   try {
     // Basic validation
