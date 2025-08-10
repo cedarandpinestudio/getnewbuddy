@@ -1,90 +1,78 @@
+// netlify/functions/stripe-webhook.js (your file)
 import Stripe from "stripe";
 import fetch from "node-fetch";
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// ✅ Required for Stripe signature verification
-export const config = {
-  bodyParser: false,
-};
+export const config = { bodyParser: false };
 
 export async function handler(event) {
   const sig = event.headers["stripe-signature"];
-  let stripeEvent;
-
   try {
-    // Read raw body
     const rawBody = Buffer.from(event.body, "utf8");
+    const evt = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
 
-    // Verify Stripe webhook signature
-    stripeEvent = stripe.webhooks.constructEvent(
-      rawBody,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    if (evt.type === "checkout.session.completed") {
+      const session = evt.data.object;
 
-    console.log("✅ Stripe event verified:", stripeEvent.type);
+      // If you want line items too:
+      const full = await stripe.checkout.sessions.retrieve(session.id, {
+        expand: ["line_items", "customer"]
+      });
 
-    if (stripeEvent.type === "checkout.session.completed") {
-      const session = stripeEvent.data.object;
-      console.log("session", session)
+      const { guide, bookingType, date, hours, notes } = session.metadata || {};
+      const items = (full.line_items?.data || []).map(li => ({
+        name: li.description,
+        qty: li.quantity,
+        total: (li.amount_total / 100).toFixed(2)
+      }));
+
       const customerEmail = session.customer_details?.email;
 
-      console.log("📦 Checkout completed for:", customerEmail);
+      const itemsHtml = items.map(
+        i => `<li>${i.qty} × ${i.name} — $${i.total}</li>`
+      ).join("");
 
-      if (!customerEmail) {
-        console.error("❌ No customer email found");
-        return { statusCode: 400, body: "No customer email found" };
-      }
+      const detailsHtml = `
+        <ul>
+          ${guide ? `<li><strong>Guide:</strong> ${guide}</li>` : ""}
+          ${bookingType ? `<li><strong>Booking Type:</strong> ${bookingType}</li>` : ""}
+          ${date ? `<li><strong>Date:</strong> ${date}</li>` : ""}
+          ${hours ? `<li><strong>Hours:</strong> ${hours}</li>` : ""}
+          ${notes ? `<li><strong>Notes:</strong> ${notes}</li>` : ""}
+        </ul>
+      `;
 
-      // ---------------------------
-      // 1️⃣ Send confirmation to customer
-      // ---------------------------
-      const customerEmailPayload = {
+      // Customer email
+      await sendBrevoEmail({
         sender: { name: "newbuddy", email: "hello@getnewbuddy.com" },
         to: [{ email: customerEmail }],
         subject: "Your newbuddy Booking Confirmation",
         htmlContent: `
-          <html>
-            <body>
-              <h2>Thanks for booking your newbuddy day in Seattle! 🎉</h2>
-              <p>We’ll be in touch soon with your host details and itinerary.</p>
-              <p><strong>Amount Paid:</strong> $${session.amount_total / 100}</p>
-              <p><strong>Product> $${session.product}</p>
-              <p><strong>Guide> $${session.guide}</p>
-            </body>
-          </html>
+          <h2>Thanks for booking your newbuddy day in Seattle! 🎉</h2>
+          <p>We’ll be in touch soon with your host details and itinerary.</p>
+          <h3>Your Booking</h3>
+          ${detailsHtml}
+          <h3>Summary</h3>
+          <ul>${itemsHtml}</ul>
+          <p><strong>Total Paid:</strong> $${(session.amount_total/100).toFixed(2)}</p>
         `,
-      };
+      });
 
-      console.log("📨 Sending confirmation email to:", customerEmail);
-      await sendBrevoEmail(customerEmailPayload);
-
-      // ---------------------------
-      // 2️⃣ Send booking notification to owner
-      // ---------------------------
-      const ownerEmailPayload = {
+      // Owner email
+      await sendBrevoEmail({
         sender: { name: "newbuddy Booking Bot", email: "hello@getnewbuddy.com" },
         to: [{ email: "hello@getnewbuddy.com" }],
         subject: "📢 New newbuddy Booking!",
         htmlContent: `
-          <html>
-            <body>
-              <h2>New Booking Alert 🚀</h2>
-              <p><strong>Customer Email:</strong> ${customerEmail}</p>
-              <p><strong>Amount Paid:</strong> $${session.amount_total / 100}</p>
-              <p><strong>Product> $${session.product}</p>
-              <p><strong>Guide> $${session.guide}</p>
-              <p><strong>Session ID:</strong> ${session.id}</p>
-            </body>
-          </html>
+          <h2>New Booking Alert 🚀</h2>
+          <p><strong>Customer:</strong> ${customerEmail}</p>
+          ${detailsHtml}
+          <h3>Items</h3>
+          <ul>${itemsHtml}</ul>
+          <p><strong>Total Paid:</strong> $${(session.amount_total/100).toFixed(2)}</p>
+          <p><strong>Session ID:</strong> ${session.id}</p>
         `,
-      };
-
-      console.log("📨 Sending owner notification email to: hello@getnewbuddy.com");
-      await sendBrevoEmail(ownerEmailPayload);
-
-      console.log("✅ Both emails sent successfully");
+      });
     }
 
     return { statusCode: 200, body: JSON.stringify({ received: true }) };
@@ -94,26 +82,17 @@ export async function handler(event) {
   }
 }
 
-// 📧 Helper function to send Brevo emails
 async function sendBrevoEmail(payload) {
-  try {
-    const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "api-key": process.env.BREVO_API_KEY,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const brevoText = await brevoRes.text();
-    console.log("📧 Brevo API response:", brevoRes.status, brevoText);
-
-    if (!brevoRes.ok) {
-      throw new Error(`Brevo send failed: ${brevoRes.status} ${brevoText}`);
-    }
-  } catch (error) {
-    console.error("❌ Brevo send error:", error.message);
-  }
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "api-key": process.env.BREVO_API_KEY,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const text = await res.text();
+  console.log("📧 Brevo API response:", res.status, text);
+  if (!res.ok) throw new Error(text);
 }

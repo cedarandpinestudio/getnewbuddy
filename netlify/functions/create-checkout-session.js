@@ -9,7 +9,7 @@ export async function handler(event) {
   }
 
   try {
-    const { product, cancelPath } = JSON.parse(event.body);
+    const { product, cancelPath, booking } = JSON.parse(event.body);
     console.log("Incoming checkout request:", product);
 
     if (!product?.name || !product?.price) {
@@ -20,17 +20,32 @@ export async function handler(event) {
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
+      mode: "payment",
+      // 👇 store your booking details on the session
+      metadata: {
+        guide: booking.guide || "",
+        bookingType: booking.bookingType || "",
+        date: booking.date || "",
+        hours: booking.hours?.toString() || "",
+        notes: booking.notes || ""
+      },
       line_items: [
         {
           price_data: {
             currency: "usd",
-            product_data: { name: product.name },
+            product_data: {
+              name: product.name,
+              // (optional) duplicate on the product line too
+              metadata: {
+                guide: booking.guide || "",
+                bookingType: booking.bookingType || ""
+              }
+            },
             unit_amount: product.price * 100,
           },
-          quantity: 1,
-        },
+          quantity: 1
+        }
       ],
-      mode: "payment",
       success_url: `${siteUrl}/success`,
       cancel_url: `${siteUrl}${cancelPath || ""}`,
     });

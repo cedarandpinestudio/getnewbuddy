@@ -29,6 +29,7 @@ export async function handleCheckout(productName, price, cancelPath) {
       body: JSON.stringify({
         product: { name: productName, price },
         cancelPath,
+        booking
       }),
     });
 
