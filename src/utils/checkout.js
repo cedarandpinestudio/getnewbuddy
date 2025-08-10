@@ -1,40 +1,35 @@
 // utils/checkout.js
 // ----------------------------------------------------------------------------
 // Stripe Checkout starter for Newbuddy
-// - Accepts product + booking details
-// - Chooses the right backend endpoint (local vs Netlify)
-// - Gives clear errors + returns a result you can use in the UI
 // ----------------------------------------------------------------------------
 
 import { loadStripe } from "@stripe/stripe-js";
 
-/**
- * Lazily load Stripe using the publishable key from Vite env.
- */
+// Cache the promise so we don't load Stripe multiple times
+let stripePromise;
+
+/** Lazily load Stripe using the publishable key from Vite env. */
 function getStripePromise() {
-  const pk = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
-  if (!pk) {
-    throw new Error(
-      "Missing VITE_STRIPE_PUBLISHABLE_KEY. Add it to your .env and restart the dev server."
-    );
+  if (!stripePromise) {
+    const pk = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+    if (!pk) {
+      throw new Error(
+        "Missing VITE_STRIPE_PUBLISHABLE_KEY. Add it to your .env and restart the dev server."
+      );
+    }
+    stripePromise = loadStripe(pk);
   }
-  return loadStripe(pk);
+  return stripePromise;
 }
 
-/**
- * Build the backend endpoint depending on environment.
- * - Local dev: your Express server (change the port/path if needed)
- * - Production: Netlify function
- */
+/** Backend endpoint (local dev vs Netlify prod). */
 function getCheckoutEndpoint() {
   return import.meta.env.DEV
     ? "http://localhost:4242/create-checkout-session"
     : "/.netlify/functions/create-checkout-session";
 }
 
-/**
- * Optional sanitizer to keep booking payload tidy (only primitives).
- */
+/** Keep booking payload tidy (only primitives / strings). */
 function sanitizeBooking(booking = {}) {
   const s = (v) =>
     v === undefined || v === null ? "" : typeof v === "string" ? v : String(v);
@@ -45,6 +40,9 @@ function sanitizeBooking(booking = {}) {
     date: s(booking.date),
     hours: s(booking.hours),
     notes: s(booking.notes),
+    // feel free to include other keys (e.g., contactEmail, vibe) if you need them
+    contactEmail: s(booking.contactEmail),
+    vibe: s(booking.vibe),
   };
 }
 
@@ -54,27 +52,22 @@ function sanitizeBooking(booking = {}) {
  * @param {string} args.productName - e.g. "Half-Day Local Buddy (🍜 Foodie)"
  * @param {number} args.price - in USD, e.g. 125
  * @param {string} [args.cancelPath="/"] - where to return if user cancels
- * @param {Object} [args.booking] - { guide, bookingType, date, hours, notes }
+ * @param {Object} [args.booking] - { guide, bookingType, date, hours, notes, contactEmail, vibe }
  * @returns {Promise<{ok:boolean, sessionId?:string, error?:string}>}
  */
 export async function handleCheckout({
   productName,
   price,
   cancelPath = "/",
-  booking = {
-    guide: selectedGuideName,
-    bookingType: selectedPackage,
-    date: selectedDateISO,
-    hours: selectedHours,
-    notes: userNotes
-  },
+  booking = {}, // ✅ FIX: no references to unknown variables
 }) {
   try {
     // Basic validation
     if (!productName || typeof productName !== "string") {
       return { ok: false, error: "Product name is required." };
     }
-    if (typeof price !== "number" || Number.isNaN(price) || price <= 0) {
+    const numericPrice = Number(price);
+    if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
       return { ok: false, error: "Price must be a positive number." };
     }
 
@@ -85,12 +78,11 @@ export async function handleCheckout({
 
     const endpoint = getCheckoutEndpoint();
     const payload = {
-      product: { name: productName, price },
+      product: { name: productName, price: numericPrice },
       cancelPath,
       booking: sanitizeBooking(booking),
     };
 
-    // Helpful console logs for debugging
     console.log("📡 POST", endpoint, payload);
 
     const res = await fetch(endpoint, {
@@ -99,7 +91,6 @@ export async function handleCheckout({
       body: JSON.stringify(payload),
     });
 
-    // Non-2xx -> show backend error text (often contains useful info)
     if (!res.ok) {
       const text = await res.text();
       console.error("❌ Backend error:", res.status, text);
@@ -114,14 +105,13 @@ export async function handleCheckout({
 
     console.log("✅ Session created:", data.id);
 
-    // Redirect to Stripe Checkout
     const { error } = await stripe.redirectToCheckout({ sessionId: data.id });
     if (error) {
       console.error("❌ Stripe redirect error:", error);
       return { ok: false, error: error.message || "Stripe redirect failed." };
     }
 
-    // If redirect succeeds, this code won’t run (browser navigates away).
+    // Normally unreachable because the browser navigates away
     return { ok: true, sessionId: data.id };
   } catch (err) {
     console.error("❌ Checkout error:", err);
@@ -133,24 +123,3 @@ export async function handleCheckout({
     };
   }
 }
-
-/* ---------------------------------------------------------------------------
-Example usage (in your booking page):
-
-const result = await handleCheckout({
-  productName: "Half-Day Local Buddy (🍜 Foodie)",
-  price: 125,
-  cancelPath: "/book",
-  booking: {
-    guide: "Aisha",
-    bookingType: "Half-Day",
-    date: "2025-08-13",
-    hours: 4,
-    notes: "Vegetarian options please!"
-  }
-});
-
-if (!result.ok) {
-  toast.error(result.error);
-}
---------------------------------------------------------------------------- */
