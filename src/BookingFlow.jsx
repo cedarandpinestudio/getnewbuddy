@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { handleCheckout } from "./utils/checkout";
 import { parseISO, format } from "date-fns";
 
@@ -8,16 +8,19 @@ import jan from "./assets/jan-prof-pic.svg";
 import jacob from "./assets/jacob-prof-pic.svg";
 
 export default function BookingFlow() {
-  // State
+  // Step state
   const [selectedVibe, setSelectedVibe] = useState("");
   const [selectedPackage, setSelectedPackage] = useState("");
   const [price, setPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedGuide, setSelectedGuide] = useState("");
 
-  // Contact email state
+  // Contact email (for your own follow-up)
   const [contactEmail, setContactEmail] = useState("");
   const [contactEmailError, setContactEmailError] = useState("");
+
+  // Optional notes (keep if you want to collect anything extra later)
+  const [notes, setNotes] = useState("");
 
   // Data
   const vibes = [
@@ -28,47 +31,67 @@ export default function BookingFlow() {
   ];
 
   const guides = [
-    {
-      id: "aisha",
-      name: "Aisha",
-      bio: "Loves coffee shops, views, and ferry rides.",
-      img: aisha,
-    },
-    {
-      id: "janel",
-      name: "Janel",
-      bio: "Loves live music, art, and exploring neighborhoods.",
-      img: jan,
-    },
-    {
-      id: "jacob",
-      name: "Jacob",
-      bio: "Passionate about music, coffee, and hidden gems.",
-      img: jacob,
-    },
+    { id: "aisha", name: "Aisha", bio: "Loves coffee shops, views, and ferry rides.", img: aisha },
+    { id: "janel", name: "Janel", bio: "Loves live music, art, and exploring neighborhoods.", img: jan },
+    { id: "jacob", name: "Jacob", bio: "Passionate about music, coffee, and hidden gems.", img: jacob },
   ];
 
-  // Email validation
+  // Helpers
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  // Handle final checkout click
-  const handleConfirmAndPay = () => {
+  const hoursForPackage = useMemo(() => {
+    if (selectedPackage === "Half-Day") return 4;
+    if (selectedPackage === "Full-Day") return 8;
+    return null;
+  }, [selectedPackage]);
+
+  const productName = useMemo(() => {
+    // This matches what you were passing before
+    if (!selectedPackage || !selectedVibe) return "";
+    return `${selectedPackage} Local Buddy (${selectedVibe})`;
+  }, [selectedPackage, selectedVibe]);
+
+  const canSubmit =
+    !!selectedVibe &&
+    !!selectedPackage &&
+    !!selectedDate &&
+    !!selectedGuide &&
+    !!price &&
+    isValidEmail(contactEmail);
+
+  async function handleConfirmAndPay() {
     if (!isValidEmail(contactEmail)) {
       setContactEmailError("Please enter a valid contact email.");
       return;
     }
     setContactEmailError("");
 
-    handleCheckout(
-      `${selectedPackage} Local Buddy (${selectedVibe})`,
-      price,
-      "/book"
-    );
-  };
+    // Build a single booking object – everything as strings where sensible.
+    const booking = {
+      guide: selectedGuide || "",
+      bookingType: selectedPackage || "",
+      vibe: selectedVibe || "",
+      date: selectedDate || "", // ISO yyyy-MM-dd
+      hours: hoursForPackage != null ? String(hoursForPackage) : "",
+      notes: notes || "",
+      contactEmail: contactEmail || "",
+    };
+
+    try {
+      await handleCheckout({
+        productName,
+        price,
+        cancelPath: "/book",
+        booking,
+      });
+    } catch (err) {
+      console.error("Checkout start failed:", err);
+      alert("Failed to start checkout. Please try again.");
+    }
+  }
 
   return (
     <div className="booking-flow">
-
       {/* Step 1: Pick Your Vibe */}
       <div className="booking-step vibe-step">
         <h2>✨ Step 1: Pick Your Vibe</h2>
@@ -164,6 +187,15 @@ export default function BookingFlow() {
             className={`styled-input ${contactEmailError ? "error-input" : ""}`}
           />
           {contactEmailError && <p className="error-text">{contactEmailError}</p>}
+
+          {/* Optional notes field (you can hide or keep) */}
+          <textarea
+            placeholder="Any notes or preferences? (optional)"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="styled-textarea"
+            rows={3}
+          />
         </div>
       )}
 
@@ -175,31 +207,33 @@ export default function BookingFlow() {
           <div className="summary-card">
             <div className="summary-row">
               <span className="label">Vibe:</span>
-              <span className="value">{selectedVibe}</span>
+              <span className="value">{selectedVibe || "—"}</span>
             </div>
             <div className="summary-row">
               <span className="label">Package:</span>
               <span className="value">
-                {selectedPackage} — ${price}
+                {selectedPackage || "—"} {price ? `— $${price}` : ""}
               </span>
             </div>
             <div className="summary-row">
               <span className="label">Date:</span>
               <span className="value">
-                {format(parseISO(selectedDate), "MMMM do, yyyy")}
+                {selectedDate ? format(parseISO(selectedDate), "MMMM do, yyyy") : "—"}
               </span>
             </div>
             <div className="summary-row">
               <span className="label">Guide:</span>
-              <span className="value">{selectedGuide}</span>
+              <span className="value">{selectedGuide || "—"}</span>
             </div>
           </div>
 
           <button
             className="pay-button"
             onClick={handleConfirmAndPay}
+            disabled={!canSubmit}
+            title={!canSubmit ? "Please complete all steps and enter a valid email" : "Pay with Stripe"}
           >
-            Confirm & Pay ${price}
+            Confirm &amp; Pay ${price || 0}
           </button>
         </div>
       )}
