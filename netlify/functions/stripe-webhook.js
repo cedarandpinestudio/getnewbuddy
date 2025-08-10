@@ -49,6 +49,9 @@ export async function handler(event) {
             <body>
               <h2>Thanks for booking your newbuddy day in Seattle! 🎉</h2>
               <p>We’ll be in touch soon with your host details and itinerary.</p>
+              <p><strong>Amount Paid:</strong> $${session.amount_total / 100}</p>
+              <p><strong>Product> $${session.product}</p>
+              <p><strong>Guide> $${session.guide}</p>
             </body>
           </html>
         `,
@@ -70,6 +73,8 @@ export async function handler(event) {
               <h2>New Booking Alert 🚀</h2>
               <p><strong>Customer Email:</strong> ${customerEmail}</p>
               <p><strong>Amount Paid:</strong> $${session.amount_total / 100}</p>
+              <p><strong>Product> $${session.product}</p>
+              <p><strong>Guide> $${session.guide}</p>
               <p><strong>Session ID:</strong> ${session.id}</p>
             </body>
           </html>
