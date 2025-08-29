@@ -130,7 +130,7 @@ export default function App() {
         </section>
 
        <a
-        href="https://cedarandpine.studio" // Replace with your desired URL
+        href="https://www.cedarandpine.studio" // Replace with your desired URL
         target="_blank"
         rel="noopener noreferrer"
         className="cedar-pine-link"
